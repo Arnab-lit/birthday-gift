@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday 🎉</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <audio id="bg-music" autoplay loop>
+    <source src="music/happy-birthday.mp3" type="audio/mp3" />
+    Your browser does not support the audio element.
+  </audio>
+
+  <div class="container">
+    <div id="photo-grid"></div>
+    <img id="main-photo" src="photos/1.jpg" alt="birthday photo" />
+    <div id="message" class="hidden">
+      <h2 class="animated-text">🎂 Happy Birthday, <span class="name">Sudakshina</span>! 🎈</h2>
+      <p class="animated-text">Today you’re officially hotter than ever 😘<br>Let’s make this day as unforgettable as your smile.<br>Can’t wait to steal some kisses and give you all my love ❤️</p>
+    </div>
+    <button id="next-btn" onclick="nextPhoto()">Next Photo</button>
+    <button id="replay-btn" class="hidden" onclick="replay()">Replay</button>
+  </div>
+  <canvas id="confetti-canvas"></canvas>
+  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</body>
+</html>
