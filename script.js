@@ -51,3 +51,19 @@ img.style.top = Math.random() * 90 + "%";
 img.style.left = Math.random() * 90 + "%";
 
 photoGrid.appendChild(img);
+
+window.onload = () => {
+  const audio = document.getElementById('bg-music');
+
+  // Try autoplay (works on some browsers)
+  audio.play().catch(() => {
+    // Wait for first user interaction
+    const enableAudio = () => {
+      audio.play();
+      document.removeEventListener('click', enableAudio);
+      document.removeEventListener('touchstart', enableAudio);
+    };
+    document.addEventListener('click', enableAudio);
+    document.addEventListener('touchstart', enableAudio);
+  });
+};
