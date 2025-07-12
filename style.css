@@ -43,7 +43,7 @@ body {
 }
 
 #photo-grid img {
-  width: 100px;  /* bigger size */
+  width: 100px;
   height: 100px;
   object-fit: cover;
   border-radius: 12px;
@@ -127,7 +127,6 @@ button:hover {
   z-index: 9999;
 }
 
-/* 🎯 Responsive Design */
 @media (max-width: 768px) {
   #main-photo {
     width: 90%;
@@ -144,7 +143,7 @@ button:hover {
   }
 
   #photo-grid img {
-    width: 80px;  /* bigger size for mobile */
+    width: 80px;
     height: 80px;
   }
 }

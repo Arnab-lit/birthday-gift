@@ -13,11 +13,15 @@ const photos = [
 let index = 1;
 
 function nextPhoto() {
+  const audio = document.getElementById("bg-music");
+  if (audio && audio.paused) {
+    audio.play().catch((err) => console.log("Music play blocked:", err));
+  }
+
   if (index < photos.length) {
     document.getElementById("main-photo").src = photos[index];
     index++;
 
-    // Show previous photos in background
     const img = document.createElement("img");
     img.src = photos[index - 2];
     img.style.top = Math.random() * 90 + "%";
@@ -44,14 +48,12 @@ function replay() {
   document.getElementById("next-btn").classList.remove("hidden");
   document.getElementById("replay-btn").classList.add("hidden");
 
-  // Clear previous floating photos
   const grid = document.getElementById("photo-grid");
   while (grid.firstChild) {
     grid.removeChild(grid.firstChild);
   }
 }
 
-// 🎵 MUSIC AUTOPLAY FIX
 window.addEventListener("DOMContentLoaded", () => {
   const audio = document.getElementById("bg-music");
 
