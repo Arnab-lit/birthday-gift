@@ -55,14 +55,15 @@ function replay() {
 window.addEventListener("DOMContentLoaded", () => {
   const audio = document.getElementById("bg-music");
 
-  // Try to play immediately (may fail on mobile)
-  audio.play().catch(() => {
-    const enableAudio = () => {
-      audio.play();
-      document.removeEventListener("click", enableAudio);
-      document.removeEventListener("touchstart", enableAudio);
-    };
-    document.addEventListener("click", enableAudio);
-    document.addEventListener("touchstart", enableAudio);
-  });
+  // Wait for user interaction
+  const startAudio = () => {
+    audio.play().catch((e) => {
+      console.log("Play failed:", e);
+    });
+    document.removeEventListener("click", startAudio);
+    document.removeEventListener("touchstart", startAudio);
+  };
+
+  document.addEventListener("click", startAudio);
+  document.addEventListener("touchstart", startAudio);
 });
