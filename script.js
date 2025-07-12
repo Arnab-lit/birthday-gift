@@ -1,69 +1,68 @@
-
 const photos = [
-  "photos/1.jpg", "photos/2.jpg", "photos/3.jpg", "photos/4.jpg",
-  "photos/5.jpg", "photos/6.jpg", "photos/7.jpg", "photos/8.jpg",
-  "photos/9.jpg", "photos/10.jpg"
+  "photos/1.jpg",
+  "photos/2.jpg",
+  "photos/3.jpg",
+  "photos/4.jpg",
+  "photos/5.jpg",
+  "photos/6.jpg",
+  "photos/7.jpg",
+  "photos/8.jpg",
+  "photos/9.jpg",
+  "photos/10.jpg"
 ];
-
-let index = 0;
-
-window.onload = () => {
-  const audio = document.getElementById('bg-music');
-  audio.play().catch(() => {
-    console.log("Autoplay might be blocked.");
-  });
-};
+let index = 1;
 
 function nextPhoto() {
-  const photoGrid = document.getElementById("photo-grid");
-  if (index < photos.length - 1) {
-    let img = document.createElement("img");
-    img.src = photos[index];
-    img.style.top = Math.random() * 80 + "%";
-    img.style.left = Math.random() * 80 + "%";
-    photoGrid.appendChild(img);
-    index++;
+  if (index < photos.length) {
     document.getElementById("main-photo").src = photos[index];
+    index++;
+
+    // Show previous photos in background
+    const img = document.createElement("img");
+    img.src = photos[index - 2];
+    img.style.top = Math.random() * 90 + "%";
+    img.style.left = Math.random() * 90 + "%";
+    document.getElementById("photo-grid").appendChild(img);
   } else {
-    document.getElementById("main-photo").style.display = "none";
-    document.getElementById("next-btn").classList.add("hidden");
+    document.getElementById("main-photo").classList.add("hidden");
     document.getElementById("message").classList.remove("hidden");
+    document.getElementById("next-btn").classList.add("hidden");
     document.getElementById("replay-btn").classList.remove("hidden");
-    confettiExplosion();
+    confetti({
+      particleCount: 200,
+      spread: 90,
+      origin: { y: 0.6 }
+    });
   }
 }
 
 function replay() {
-  location.reload();
+  index = 1;
+  document.getElementById("main-photo").src = photos[0];
+  document.getElementById("main-photo").classList.remove("hidden");
+  document.getElementById("message").classList.add("hidden");
+  document.getElementById("next-btn").classList.remove("hidden");
+  document.getElementById("replay-btn").classList.add("hidden");
+
+  // Clear previous floating photos
+  const grid = document.getElementById("photo-grid");
+  while (grid.firstChild) {
+    grid.removeChild(grid.firstChild);
+  }
 }
 
-function confettiExplosion() {
-  confetti({
-    particleCount: 200,
-    spread: 70,
-    origin: { y: 0.6 }
-  });
-}
+// 🎵 MUSIC AUTOPLAY FIX
+window.addEventListener("DOMContentLoaded", () => {
+  const audio = document.getElementById("bg-music");
 
-let img = document.createElement("img");
-img.src = photos[index];
-img.style.top = Math.random() * 90 + "%";
-img.style.left = Math.random() * 90 + "%";
-
-photoGrid.appendChild(img);
-
-window.onload = () => {
-  const audio = document.getElementById('bg-music');
-
-  // Try autoplay (works on some browsers)
+  // Try to play immediately (may fail on mobile)
   audio.play().catch(() => {
-    // Wait for first user interaction
     const enableAudio = () => {
       audio.play();
-      document.removeEventListener('click', enableAudio);
-      document.removeEventListener('touchstart', enableAudio);
+      document.removeEventListener("click", enableAudio);
+      document.removeEventListener("touchstart", enableAudio);
     };
-    document.addEventListener('click', enableAudio);
-    document.addEventListener('touchstart', enableAudio);
+    document.addEventListener("click", enableAudio);
+    document.addEventListener("touchstart", enableAudio);
   });
-};
+});
